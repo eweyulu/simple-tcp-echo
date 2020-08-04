@@ -45,16 +45,16 @@ print('pkt_nr size rtt')
 while count < num_pkts:
     time_sent = time.time() 
     text = str(time_sent).encode(FORMAT)
-    to_send = padding(text)
+    txt_to_send = padding(text)
     
-    s.sendall(to_send)
+    s.sendall(txt_to_send)
 
     data = s.recv(1420)
     data = data.decode(FORMAT)
     unpadded = unpadding(data)
 
-    time_recv = time.time()
-    time_diff = (time_recv-time_sent)*1000
+    elapsed_time = time.time()
+    time_diff = (elapsed_time-float(unpadded))*1000
     time_conv = '{:.3f}'.format(time_diff)
     print('{} {} {} {}'.format(pkt_nr, repr(unpadded), time_conv, len(data)))
     
