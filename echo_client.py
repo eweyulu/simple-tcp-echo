@@ -36,7 +36,6 @@ def padding(msg):
 def unpadding(msg):
     
     last_char = msg[-1]
-#    if ord(last_char) < 32:
     if last_char.isdigit() == False:
         return msg.rstrip(last_char)
     else:
@@ -44,24 +43,16 @@ def unpadding(msg):
 
 print('pkt_nr size rtt')
 while count < num_pkts:
-    time_sent = time.time()
+    time_sent = time.time() 
     text = str(time_sent).encode(FORMAT)
     to_send = padding(text)
-#    padding_length = 1420 - len(text)
-#    
-#    padding_byte = b' '
-#    print('time_sent: ', time_sent)
-#    to_send = bytearray(padding_byte * padding_length) + text
     
     s.sendall(to_send)
-#    s.sendall(b'Hello World')
 
-#    time_sent = time.time()
     data = s.recv(1420)
     data = data.decode(FORMAT)
-    
     unpadded = unpadding(data)
-#    print('check: ', unpadded)
+
     time_recv = time.time()
     time_diff = (time_recv-time_sent)*1000
     time_conv = '{:.3f}'.format(time_diff)
