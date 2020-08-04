@@ -18,6 +18,7 @@ port = int(sys.argv[2])
 num_pkts = int(sys.argv[3])
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1) #Disable Nagle's
 s.connect((host, port))
 
 FORMAT = 'utf-8'
