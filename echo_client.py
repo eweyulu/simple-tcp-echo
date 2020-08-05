@@ -6,7 +6,6 @@ Copyright (c) 2020 Emilia Weyulu <eweyulu@mpi-inf.mpg.de>.
 
 """
 
-# echo_client.py
 import os, sys
 import socket
 import time
@@ -18,7 +17,7 @@ port = int(sys.argv[2])
 num_pkts = int(sys.argv[3])
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1) #Disable Nagle's
+#s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, True) #Disable Nagle's
 s.connect((host, port))
 
 FORMAT = 'utf-8'
@@ -29,7 +28,7 @@ pkt_nr = 1
 def padding(msg):
     padding = bytes(chr(random.randint(1,31)), encoding=FORMAT)
     
-    extra = 1420 - len(msg)
+    extra = 1400 - len(msg)
     if extra > 0:
         msg += padding * extra
     return msg
@@ -42,7 +41,7 @@ def unpadding(msg):
     else:
         return msg
 
-print('pkt_nr size rtt')
+print('pkt_nr ts rtt size')
 while count < num_pkts:
     time_sent = time.time() 
     text = str(time_sent).encode(FORMAT)
