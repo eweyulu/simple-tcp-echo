@@ -14,9 +14,14 @@ import threading
 import queue
 
 # Set up socket, get IP, port and how many packets to send from commandline
-host = sys.argv[1] 
-port = int(sys.argv[2]) 
-num_pkts = int(sys.argv[3])
+try:
+    host = sys.argv[1] 
+    port = int(sys.argv[2]) 
+    num_pkts = int(sys.argv[3])
+except IndexError:
+    file_ = sys.argv[0]
+    sys.stderr.write('Usage: ' + '%s SERVER-IP PORT PACKETS \n' %(file_))
+    sys.exit(1)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, True) #Disable Nagle's

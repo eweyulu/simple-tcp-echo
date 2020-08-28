@@ -11,7 +11,13 @@ import os, sys
 import socket
 
 host = ''        # Symbolic name meaning all available interfaces
-port = int(sys.argv[1]) 
+
+try:
+    port = int(sys.argv[1]) 
+except IndexError:
+    file_ = sys.argv[0]
+    sys.stderr.write('Usage: ' + '%s PORT \n' %(file_))
+    sys.exit(1)
 
 DISCONNECT_MESSAGE = "!DISCONNECT" 
 
