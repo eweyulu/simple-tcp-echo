@@ -73,6 +73,7 @@ while count < num_pkts:
     que = queue.Queue()
     thread_recv = threading.Thread(target=_recv, args=(que, SZ))
     thread_recv.start()
+    #thread_send.join()
     thread_recv.join()
     
 #    data = s.recv(1420)

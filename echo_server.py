@@ -10,7 +10,7 @@ Copyright (c) 2020 Emilia Weyulu <eweyulu@mpi-inf.mpg.de>.
 import os, sys
 import socket
 
-host = ''        # Symbolic name meaning all available interfaces
+host = ''   # The socket is reachable by any address the machine happens to have
 
 try:
     port = int(sys.argv[1]) 
