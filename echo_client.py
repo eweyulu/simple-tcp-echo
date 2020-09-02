@@ -11,7 +11,6 @@ import socket
 import time
 import string, random
 import threading
-import queue
 
 # Set up socket, get IP, port and how many packets to send from commandline
 try:
@@ -53,12 +52,6 @@ def unpadding(msg):
 def _send(msg):
     s.sendall(msg)
     
-    
-def _recv(que, SZ):
-    recvd_data = s.recv(SZ)
-    que.put(recvd_data)
-    
-    return recvd_data
 
 print('pkt_nr ts rtt size')
 while count < num_pkts:
@@ -66,19 +59,12 @@ while count < num_pkts:
     text = str(time_sent).encode(FORMAT)
     txt_to_send = padding(text)
     
-#    s.sendall(txt_to_send)
     thread_send = threading.Thread(target=_send, args=(txt_to_send,))
     thread_send.start()
     
-    que = queue.Queue()
-    thread_recv = threading.Thread(target=_recv, args=(que, SZ))
-    thread_recv.start()
-    #thread_send.join()
-    thread_recv.join()
     
-#    data = s.recv(1420)
-    data = que.get()
-#    print('data ', data)       
+    data = s.recv(1420)
+       
     data = data.decode(FORMAT)
     unpadded = unpadding(data)
 
