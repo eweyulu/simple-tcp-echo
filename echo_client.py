@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created by Emilia Weyulu on Sun Aug 01 23:47:18 2020
-Copyright (c) 2020 Emilia Weyulu <eweyulu@mpi-inf.mpg.de>.
+A simple TCP echo client
 
 """
 
